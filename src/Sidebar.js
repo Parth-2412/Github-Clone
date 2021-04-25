@@ -7,37 +7,37 @@ import Input from "./Input";
 function Sidebar() {
 	const [repoSearch, setRepoSearch] = useState("")
 	const [teamSearch, setTeamSearch] = useState("")
-    const [repos, setRepos] = useState([
-        // {
-        //     name : "github-clone",
-        //     visibility : "public",
-        //     username : "User-123"
-        // },
-        // {
-        //     name : "saas-product",
-        //     visibility : "private",
-        //     username : "User-123"
-        // },
-        // {
-        //     name : "netflix-clone",
-        //     visibility : "public",
-        //     username : "another-user"
-        // },
-        // {
-        //     name : "saas-product2",
-        //     visibility : "private",
-        //     username : "User-123"
-        // },
+    const [repos] = useState([
+        {
+            name : "github-clone",
+            visibility : "public",
+            username : "User-123"
+        },
+        {
+            name : "saas-product",
+            visibility : "private",
+            username : "User-123"
+        },
+        {
+            name : "netflix-clone",
+            visibility : "public",
+            username : "another-user"
+        },
+        {
+            name : "saas-product2",
+            visibility : "private",
+            username : "User-123"
+        },
     ])
-    const [teams, setTeams] = useState([
-        // {
-        //     name : "backend",
-        //     username : "User-123"
-        // },
-        // {
-        //     name : "frontend",
-        //     username : "Another-user"
-        // },
+    const [teams] = useState([
+        {
+            name : "backend",
+            username : "User-123"
+        },
+        {
+            name : "frontend",
+            username : "Another-user"
+        },
     ])
     return (
         <div className="md:bg-gh-sidebar px-6 py-6 flex flex-col space-y-5 border-r border-gray-800 border-opacity-90">
