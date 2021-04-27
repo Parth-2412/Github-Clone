@@ -1,14 +1,16 @@
+import { useState } from "react";
+import Discover from "./Discover";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 function App() {
+const [margin, setMargin] = useState(0);
   return (
     <div className="">
-      <Header/>
-      <div className="grid grid-cols-1 lg:grid-cols-github md:grid-cols-github-md h-screen">
+    <Header setMargin={setMargin}/>   
+      <div className="grid grid-cols-1 md:grid-cols-github-md lg:grid-cols-github-lg xl:grid-cols-github-xl 2xl:grid-cols-github-2xl" style={{height : window.innerHeight - margin, marginTop : margin}}>
         <Sidebar/>
-        {/* Footer */}
-        {/* Discover */}
+        <Discover />
       </div>
     </div>
   );

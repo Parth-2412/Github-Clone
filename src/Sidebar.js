@@ -3,6 +3,7 @@ import { ChevronDownIcon, PlusIcon, UsersIcon} from "@heroicons/react/outline";
 import { LockClosedIcon, EyeIcon } from "@heroicons/react/solid";
 import Avatar from "./Avatar";
 import Input from "./Input";
+import Link from "./Link";
 
 function Sidebar() {
 	const [repoSearch, setRepoSearch] = useState("")
@@ -79,7 +80,7 @@ function Sidebar() {
                     return (
                         <div className="flex items-center space-x-1 cursor-pointer">
                             {repo.visibility === "public" ? <EyeIcon className="h-4 text-gray-300"/> : <LockClosedIcon className="h-4 text-yellow-500"/>}
-                            <a className="text-blue-400 font-semibold my-1 hover:underline" href="https://github.com">{repo.username}/{repo.name}</a>
+                            <Link href="https://github.com/" text={`${repo.username}/${repo.name}`} />
                         </div>
                     )
                 })}
@@ -101,7 +102,7 @@ function Sidebar() {
                     return (
                         <div className="flex items-center space-x-1 cursor-pointer">
                             <UsersIcon className="h-4"/>
-                            <a className="text-blue-400 font-semibold my-1 hover:underline" href="https://github.com">{team.username}/{team.name}</a>
+                            <Link href="https://github.com/" text={`${team.username}/${team.name}`} />
                         </div>
                     )
                 })}

@@ -35,13 +35,18 @@ module.exports = {
     },
     extend : {
       gridTemplateColumns : {
-        "github" : "25% auto min-content",
-        "github-md" : "33% auto"
+        "github-md" : "33% auto",
+        "github-lg" : "25% auto min-content",
+        "github-xl" : "20% auto min-content",
+        "github-2xl" : "17% auto min-content",
       }
     }
   },
   variants: {
-    extend: {},
+    extend: {
+        backgroundColor : ["active"],
+        textColor : ["active"]
+    },
   },
   plugins: [],
 }
