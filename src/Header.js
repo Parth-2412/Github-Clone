@@ -10,13 +10,17 @@ import Input from "./Input";
 import Logo from "./Logo";
 import { useEffect, useRef } from "react";
 
-function Header({ setMargin}) {
-    const ref = useRef();
-    useEffect(() => {
-        setMargin(ref.current.offsetHeight)
-    }, [ref.current?.offsetHeight, setMargin, window.innerHeight])
+function Header({ setMargin }) {
+	const ref = useRef();
+
+	useEffect(() => {
+		setMargin(ref.current.offsetHeight);
+	}, [ref.current?.offsetHeight, setMargin]);
 	return (
-		<header ref={ref} className="flex bg-gh-navbar py-3.5 items-center justify-between text-sm md:px-7 px-4 absolute top-0 left-0 w-screen" >
+		<header
+			ref={ref}
+			className="flex bg-gh-navbar py-3.5 items-center justify-between text-sm md:px-7 px-4 absolute top-0 left-0 w-screen"
+		>
 			<MenuIcon className="md:hidden h-8 cursor-pointer hover:opacity-80" />
 			<div className="cursor-pointer hover:opacity-80 flex justify-center">
 				<Logo />

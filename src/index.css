@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-  body {
-    @apply bg-gh text-gh-text
-  }
-  button:focus {
-      outline : 0px solid transparent;
-  }
+@layer base {
+	body {
+		@apply bg-gh text-gh-text;
+	}
+	button:focus {
+		outline: 0px solid transparent;
+	}
 }
