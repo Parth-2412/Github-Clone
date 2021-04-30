@@ -36,9 +36,9 @@ module.exports = {
     extend : {
       gridTemplateColumns : {
         "github-md" : "33% auto",
-        "github-lg" : "25% auto min-content",
-        "github-xl" : "20% auto min-content",
-        "github-2xl" : "17% auto min-content",
+        "github-lg" : "25% auto 25%",
+        "github-xl" : "20% auto 25%",
+        "github-2xl" : "17% auto 25%",
       }
     }
   },

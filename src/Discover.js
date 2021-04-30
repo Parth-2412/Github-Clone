@@ -1,24 +1,13 @@
 import React from "react";
 import Link from "./Link";
 import { LightBulbIcon, WifiIcon } from "@heroicons/react/outline";
-import Logo from "./Logo";
+import Footer from "./Footer";
 
 function Discover() {
 	const Watch = <Link href="http://github.com/trending" text="watch" />;
 	const Follow = (
 		<Link href="http://github.com/trending/developers" text="follow" />
 	);
-	const FooterLink = ({ children, href }) => {
-		href = href ?? "https://github.com";
-		return (
-			<span
-				className="hover:text-blue-500 hover:underline cursor-pointer"
-				onClick={() => (window.location.href = href)}
-			>
-				{children}
-			</span>
-		);
-	};
 	return (
 		<div className="flex flex-col justify-between py-8 md:px-6 px-3 w-full">
 			<div className="space-y-5">
@@ -36,7 +25,7 @@ function Discover() {
 						<> and people you </>
 						{Follow}.
 					</div>
-					<button className="text-blue-400 border active:bg-blue-700 active:text-white font-semibold border-gray-700 p-2 px-4 rounded hover:border-blue-500 hover:bg-gray-800 bg-gray-900 text-sm mt-6">
+					<button onClick={() => { window.location.href = "http://github.com/explore"}} className="text-blue-400 border active:bg-blue-700 active:text-white font-semibold border-gray-700 p-2 px-4 rounded hover:border-blue-500 hover:bg-gray-800 bg-gray-900 text-sm mt-6">
 						Explore Github
 					</button>
 				</div>
@@ -60,39 +49,11 @@ function Discover() {
 					</div>
 				</div>
 			</div>
-			<footer className="text-xs md:text-sm text-gray-400 flex w-full md:justify-between md:mt-0 mt-10 md:px-0 px-3">
-				<div className="lg:flex items-start hidden cursor-pointer">
-					<div className="flex items-center space-x-1 group">
-						<Logo
-							height="27px"
-							className="text-white opacity-50 group-hover:opacity-70"
-						/>
-						<span>© 2021 GitHub, Inc.</span>
-					</div>
-				</div>
-				<>
-					<div className="flex flex-col space-y-1 lg:flex-initial flex-1">
-						<FooterLink>Blog</FooterLink>
-						<FooterLink>About</FooterLink>
-						<FooterLink>Shop</FooterLink>
-						<FooterLink>Contact GitHub</FooterLink>
-						<FooterLink>Pricing</FooterLink>
-					</div>
-					<div className="flex flex-col space-y-1 lg:flex-initial flex-1">
-						<FooterLink>API</FooterLink>
-						<FooterLink>Training</FooterLink>
-						<FooterLink>Status</FooterLink>
-						<FooterLink>Security</FooterLink>
-					</div>
-					<div className="flex flex-col space-y-1 lg:flex-initial flex-1">
-						<FooterLink>Text</FooterLink>
-						<FooterLink>Privacy</FooterLink>
-						<FooterLink>Docs</FooterLink>
-					</div>
-				</>
-			</footer>
+			<Footer />
 		</div>
 	);
 }
 
 export default Discover;
+
+

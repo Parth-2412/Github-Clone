@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Discover from "./Discover";
+import Explore from "./Explore";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
@@ -28,6 +29,7 @@ function App() {
 			>
 				<Sidebar />
 				<Discover />
+				<Explore />
 			</div>
 		</div>
 	);
