@@ -18,7 +18,7 @@ function ExploreItem({ username, name, language, stars, description, color }) {
 			<div className="my-2 text-gray-400 font-normal flex space-x-4">
 				<div className="flex items-center">
 					<div
-						className={`h-3 w-3 rounded-full mr-1 bg-${color}-600`}
+						className={`h-3 w-3 rounded-full mr-1 ${color==="blue" ? "bg-blue-600" : "bg-gray-500"}`}
 					/>
 					<div>{language}</div>
 				</div>
