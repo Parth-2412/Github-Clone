@@ -1,45 +1,41 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ChevronDownIcon, PlusIcon, UsersIcon } from "@heroicons/react/outline";
 import { LockClosedIcon, EyeIcon } from "@heroicons/react/solid";
 import Avatar from "./Avatar";
 import Input from "./Input";
 import Link from "./Link";
+import { clientContext } from "./Context";
 
 function Sidebar() {
 	const [repoSearch, setRepoSearch] = useState("");
 	const [teamSearch, setTeamSearch] = useState("");
-	const [repos] = useState([
-		{
-			name: "github-clone",
-			visibility: "public",
-			username: "User-123",
-		},
-		{
-			name: "saas-product",
-			visibility: "private",
-			username: "User-123",
-		},
-		{
-			name: "netflix-clone",
-			visibility: "public",
-			username: "another-user",
-		},
-		{
-			name: "saas-product2",
-			visibility: "private",
-			username: "User-123",
-		},
-	]);
-	const [teams] = useState([
-		{
-			name: "backend",
-			username: "User-123",
-		},
-		{
-			name: "frontend",
-			username: "Another-user",
-		},
-	]);
+    const client = useContext(clientContext);
+	const [repos, setRepos] = useState([]);
+	const [teams, setTeams] = useState([]);
+    useEffect(() => {
+        (async () => {
+            const me  = client.me();
+            const [repos] = await me.reposAsync();
+            setRepos(repos.map(({ id, owner : {login : username}, name , html_url : url, ...meta}) => {
+                return { 
+                    id,
+                    username, 
+                    name , 
+                    url, 
+                    visibility : meta.private ? "private" : "public"
+                }
+            }))
+            const [teams] = await me.teamsAsync();
+            setTeams(teams.map(({id, html_url : url, name , slug}) => {
+                return {
+                    id,
+                    url,
+                    name,
+                    username : (url.slice("https://github.com/orgs/".length)).slice(0, -(`/teams/${slug}`.length))
+                }
+            }))
+        })()
+    }, [client])
 	return (
 		<div className="md:bg-gh-sidebar px-6 py-6 flex flex-col space-y-5 border-r border-gray-800 border-opacity-90">
 			<div className="flex space-x-2 cursor-pointer border-b border-gray-800 pb-4 pt-2">
@@ -78,7 +74,7 @@ function Sidebar() {
 					onChange={(e) => setRepoSearch(e.target.value)}
 					placeholder="Find a repository..."
 					className="bg-gh border border-gray-700 border-opacity-50 w-full"
-				/>
+				/> 
 			</div>
 			<div className="flex flex-col">
 				{repos
@@ -93,14 +89,14 @@ function Sidebar() {
 					)
 					.map((repo) => {
 						return (
-							<div className="flex items-center space-x-1 cursor-pointer">
+							<div className="flex items-center space-x-1 cursor-pointer" key={repo.id}>
 								{repo.visibility === "public" ? (
 									<EyeIcon className="h-4 text-gray-300" />
 								) : (
 									<LockClosedIcon className="h-4 text-yellow-500" />
 								)}
 								<Link
-									href="https://github.com/"
+									href={repo.url}
 									text={`${repo.username}/${repo.name}`}
 								/>
 							</div>
@@ -139,10 +135,10 @@ function Sidebar() {
 					)
 					.map((team) => {
 						return (
-							<div className="flex items-center space-x-1 cursor-pointer">
+							<div className="flex items-center space-x-1 cursor-pointer" key={team.name}>
 								<UsersIcon className="h-4" />
 								<Link
-									href="https://github.com/"
+									href={team.url}
 									text={`${team.username}/${team.name}`}
 								/>
 							</div>

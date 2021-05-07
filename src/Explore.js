@@ -35,7 +35,7 @@ function Explore() {
 					Explore Repositories
 				</div>
 				{data.map((repo) => (
-					<ExploreItem {...repo} />
+					<ExploreItem {...repo} key={repo.name} />
 				))}
 			</div>
 		</div>

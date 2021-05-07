@@ -3,12 +3,13 @@ import React from 'react'
 function FooterLink({ children, href }){
     href = href ?? "https://github.com";
     return (
-        <span
+        <a
             className="hover:text-blue-500 mr-auto hover:underline cursor-pointer"
-            onClick={() => (window.location.href = href)}
+            // onClick={() => (window.location.href = href)}
+            href={href}
         >
             {children}
-        </span>
+        </a>
     );
 };
 export default FooterLink
