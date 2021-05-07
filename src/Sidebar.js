@@ -76,7 +76,7 @@ function Sidebar() {
 					className="bg-gh border border-gray-700 border-opacity-50 w-full"
 				/> 
 			</div>
-			<div className="flex flex-col">
+			<div className="flex flex-col text-sm">
 				{repos
 					.filter(
 						(repo) =>
@@ -122,7 +122,7 @@ function Sidebar() {
 					className="bg-gh border border-gray-700 border-opacity-50 w-full"
 				/>
 			</div>
-			<div className="flex flex-col">
+			<div className="flex flex-col text-sm">
 				{teams
 					.filter(
 						(team) =>
