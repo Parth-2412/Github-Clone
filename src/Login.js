@@ -1,5 +1,5 @@
 import React from "react";
-// import firebase, { githubProvider } from './firebase'
+import firebase, { githubProvider } from "./firebase";
 import Logo from "./Logo";
 
 function Login({ setToken }) {
