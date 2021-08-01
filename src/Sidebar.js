@@ -9,39 +9,55 @@ import { clientContext } from "./Context";
 function Sidebar() {
 	const [repoSearch, setRepoSearch] = useState("");
 	const [teamSearch, setTeamSearch] = useState("");
-    const client = useContext(clientContext);
+	const client = useContext(clientContext);
 	const [repos, setRepos] = useState([]);
 	const [teams, setTeams] = useState([]);
-    useEffect(() => {
-        (async () => {
-            const me  = client.me();
-            const [repos] = await me.reposAsync();
-            setRepos(repos.map(({ id, owner : {login : username}, name , html_url : url, ...meta}) => {
-                return { 
-                    id,
-                    username, 
-                    name , 
-                    url, 
-                    visibility : meta.private ? "private" : "public"
-                }
-            }))
-            const [teams] = await me.teamsAsync();
-            setTeams(teams.map(({id, html_url : url, name , slug}) => {
-                return {
-                    id,
-                    url,
-                    name,
-                    username : (url.slice("https://github.com/orgs/".length)).slice(0, -(`/teams/${slug}`.length))
-                }
-            }))
-        })()
-    }, [client])
+	const [username, setUsername] = useState(null);
+	useEffect(() => {
+		(async () => {
+			const me = client.me();
+			setUsername((await me.infoAsync())[0].login);
+			const [repos] = await me.reposAsync();
+			setRepos(
+				repos.map(
+					({
+						id,
+						owner: { login: username },
+						name,
+						html_url: url,
+						...meta
+					}) => {
+						return {
+							id,
+							username,
+							name,
+							url,
+							visibility: meta.private ? "private" : "public",
+						};
+					}
+				)
+			);
+			const [teams] = await me.teamsAsync();
+			setTeams(
+				teams.map(({ id, html_url: url, name, slug }) => {
+					return {
+						id,
+						url,
+						name,
+						username: url
+							.slice("https://github.com/orgs/".length)
+							.slice(0, -`/teams/${slug}`.length),
+					};
+				})
+			);
+		})();
+	}, [client]);
 	return (
 		<div className="md:bg-gh-sidebar px-6 py-6 flex flex-col space-y-5 border-r border-gray-800 border-opacity-90">
 			<div className="flex space-x-2 cursor-pointer border-b border-gray-800 pb-4 pt-2">
 				<Avatar src="https://avatars.githubusercontent.com/u/71689619?s=60&v=4" />
 				<div className="gh-text opacity-80 font-semibold flex items-center text-sm">
-					<span>User-123</span>
+					<span>{username}</span>
 					<ChevronDownIcon className="h-3.5 ml-0.5" />
 				</div>
 			</div>
@@ -74,7 +90,7 @@ function Sidebar() {
 					onChange={(e) => setRepoSearch(e.target.value)}
 					placeholder="Find a repository..."
 					className="bg-gh border border-gray-700 border-opacity-50 w-full"
-				/> 
+				/>
 			</div>
 			<div className="flex flex-col text-sm">
 				{repos
@@ -89,7 +105,10 @@ function Sidebar() {
 					)
 					.map((repo) => {
 						return (
-							<div className="flex items-center space-x-1 cursor-pointer" key={repo.id}>
+							<div
+								className="flex items-center space-x-1 cursor-pointer"
+								key={repo.id}
+							>
 								{repo.visibility === "public" ? (
 									<EyeIcon className="h-4 text-gray-300" />
 								) : (
@@ -135,7 +154,10 @@ function Sidebar() {
 					)
 					.map((team) => {
 						return (
-							<div className="flex items-center space-x-1 cursor-pointer" key={team.name}>
+							<div
+								className="flex items-center space-x-1 cursor-pointer"
+								key={team.name}
+							>
 								<UsersIcon className="h-4" />
 								<Link
 									href={team.url}
